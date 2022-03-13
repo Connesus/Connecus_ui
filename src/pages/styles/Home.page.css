@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 .hero {
     width: 90%;
     margin: 0 auto;
