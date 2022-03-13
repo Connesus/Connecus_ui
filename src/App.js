@@ -15,15 +15,15 @@ const { networkId, contractName } = getConfig(process.env.NODE_ENV || 'developme
 export default function App() {
 
 
-  if (!window.walletConnection.isSignedIn()) {
-    return (
-      <main>
-        <p style={{ textAlign: 'center', marginTop: '2.5em' }}>
-          <button className="link btn btn-warning" onClick={login}>Sign in</button>
-        </p>
-      </main>
-    )
-  }
+  // if (!window.walletConnection.isSignedIn()) {
+  //   return (
+  //     <main>
+  //       <p style={{ textAlign: 'center', marginTop: '2.5em' }}>
+  //         <button className="link btn btn-warning" onClick={login}>Sign in</button>
+  //       </p>
+  //     </main>
+  //   )
+  // }
 
   return (
     <>
