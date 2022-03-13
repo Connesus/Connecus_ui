@@ -4,7 +4,10 @@ import Poll from '@component/Poll'
 import ProposalHeader from '@component/ProposalHeader'
 import ProposalAction from '@component/ProposalAction'
 
-export default function PollingProposal() {
+export default function PollingProposal({proposal}) {
+
+    console.log(proposal)
+    const {description, duration, id, total_donations, submission_time, options, option_delegations} = proposal
 
 
     return (
@@ -12,10 +15,10 @@ export default function PollingProposal() {
             <div className="proposal mt-4">
                 <ProposalHeader />
                 <div className="proposal-description">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    {description}
                 </div>
                 <div className="proposal-kind">
-                    <Poll />
+                    <Poll proposalId={proposal.id} />
                 </div>
                 {/* <ProposalAction /> */}
             </div>

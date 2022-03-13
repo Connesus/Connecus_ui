@@ -13,7 +13,7 @@ export default function useFtContract(accountId) {
             viewMethods: [
                 'ft_balance_of',
                 'ft_total_supply',
-
+                'storage_balance_of'
             ],
             changeMethods: [
                 'storage_deposit',

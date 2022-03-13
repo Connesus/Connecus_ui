@@ -24,7 +24,8 @@ export default function useDaoContract(accountId) {
                 'get_proposal',
                 'get_proposal_donation',
                 'get_bounties',
-                'get_bounty'
+                'get_bounty',
+                'get_owner'
             ],
             changeMethods: [
                 'add_proposal',

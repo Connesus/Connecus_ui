@@ -6,23 +6,74 @@ import instagram from '@assets/instagram.png'
 import discord from '@assets/discord.png'
 import donation from '@assets/hearts.png'
 import './style.css'
+import useDaoContract from '@hooks/useDaoContract'
+import { utils, transactions } from "near-api-js";
+const TEST_DAO_CONTRACT = "connecus-dao.manhndev.testnet"
+const FT_TOKEN_CONTRACT = "connecus-token.manhndev.testnet"
 
-export default function TokenCreateForm() {
+
+export default function TokenCreateForm({metadata}) {
+
+    const {contract: DaoContract} = useDaoContract()
+
+    const [donateValue, setDonateValue] = useState(0)
+    const updateDonateValue = (event) => {
+        const value = event.target.value
+        if (value === "") {
+            setDonateValue(0)
+            return
+        }
+        if (!isNaN(value)) {
+            setDonateValue(parseInt(value).toString())
+        }
+    }
+
+    const donateHandler = async () => {
+
+        let transferMsg = {
+            purpose: "OpenDonate"
+        }
+
+        let transferMsgString = JSON.stringify(transferMsg)
+
+        const result = await window.account.signAndSendTransaction({
+            receiverId: FT_TOKEN_CONTRACT,
+            actions: [
+                transactions.functionCall(
+                    'storage_deposit', 
+                    {account_id: TEST_DAO_CONTRACT},
+                    10000000000000, 
+                    utils.format.parseNearAmount("0.01")
+                ),
+                transactions.functionCall(
+                    'ft_transfer_call', 
+                    {
+                        receiver_id: TEST_DAO_CONTRACT, 
+                        amount: donateValue.toString(), 
+                        memo: null,
+                        msg: transferMsgString
+                    }, 
+                    250000000000000,
+                    1
+                )
+            ]
+        });
+    }
     
     return (
         <>
         <div className="dao-base-information">
             <div className="dao-thumbnail">
-                <img src="https://pbs.twimg.com/profile_images/1470780411747844096/vpxt_095_400x400.jpg" alt="" />
+                <img src={metadata?.thumbnail} alt="" />
             </div>
             <div className="dao-title">
-                {"future killer".toUpperCase()}
+                {metadata?.name?.toUpperCase()}
             </div>
             <div className="dao-owner">
-                {"CZ.BINANCE.MAINNET".toLowerCase()}
+                {TEST_DAO_CONTRACT}
             </div>
             <div className="dao-purpose">
-                <p>Các chú nhiều tiền thì cho vào future đánh cho anh xin ít!</p>
+                {metadata?.purpose?.toLowerCase()}
             </div>
             <div className="dao-social-networks d-flex justify-content-evenly mt-1">
                 <div className="dao-social-thumbnail" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook">
@@ -38,7 +89,26 @@ export default function TokenCreateForm() {
                     <img src={discord} alt="" />
                 </div>
                 <div className="dao-social-thumbnail" data-bs-toggle="tooltip" data-bs-placement="top" title="Donate">
-                    <img src={donation} alt="" />
+                    <a className="mr-2" data-bs-toggle="collapse" href="#collapseOpenDonate" role="button" aria-expanded="false" aria-controls="collapseOpenDonate">
+                        <img src={donation} alt="" />
+                    </a>
+                </div>
+            </div>
+            <div className="collapse" id="collapseOpenDonate">
+                <div className="d-flex justify-content-center">
+                    <div className="input-group mb-3 mt-3 w-75">
+                        <input 
+                            min="0"
+                            type="number"
+                            className="form-control" 
+                            placeholder="Donate value" 
+                            aria-label="Recipient's username" 
+                            aria-describedby="button-addon2"
+                            value={donateValue}
+                            onChange={(event) => updateDonateValue(event)}
+                        />
+                        <button className="btn btn-secondary" type="button" id="button-addon2" onClick={donateHandler}>Donate</button>
+                    </div>
                 </div>
             </div>
         </div>

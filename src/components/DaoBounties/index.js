@@ -1,8 +1,27 @@
 import React, {useState, useEffect} from 'react'
 import './style.css'
-import BountyCard from '@component/BuontyCard'
+import BountyCard from '@component/BountyCard'
+import useDaoContract from '@hooks/useDaoContract'
 
-export default function DaoBounties() {
+export default function DaoBounties({ftStorageBalance}) {
+
+    const  {contract: DaoContract} = useDaoContract()
+    const [start, setStart] = useState(0)
+    const [limit, setLimit] = useState(10)
+    const [bounties, setBounties] = useState([])
+
+    useEffect(() => {
+        if (DaoContract) {
+            DaoContract.get_bounties({
+                from_index: start,
+                limit: limit,
+                account_id: window.accountId
+            }).then(result => {
+                setBounties(result)
+            })
+        }
+    }, [DaoContract])
+
     return (
         <>
         <div className="dao-bounties">
@@ -10,8 +29,8 @@ export default function DaoBounties() {
                 Claim your bounties
             </div>
             <div className="dao-bounties-list d-flex flex-wrap justify-content-between">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(element => {
-                    return <BountyCard key={element}/>
+                {bounties.map(bounty => {
+                    return <BountyCard key={bounty.id} bounty={bounty} ftStorageBalance={ftStorageBalance}/>
                 })}
             </div>
         </div>

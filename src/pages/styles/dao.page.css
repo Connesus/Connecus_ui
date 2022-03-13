@@ -10,3 +10,10 @@
 .project-introduction p {
     font-size: 2.2rem;
 }
+
+.user-button {
+    position: fixed;
+    top: 10px;
+    left: 30px;
+    z-index: 100000;
+}
