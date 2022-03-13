@@ -1,0 +1,60 @@
+.hero {
+    width: 90%;
+    margin: 0 auto;
+    padding: 128px 64px 64px;
+    display: flex;
+    gap: 64px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero__title {
+    font-weight: bold;
+    font-size: 60px;
+    margin-bottom: 16px;
+}
+
+.hero__subtitle {
+    font-size: 18px;
+}
+
+.hero__btns {
+    margin-top: 64px;
+    display: flex;
+    gap: 16px;
+}
+
+.dao-section {
+    background-color: #0a0ab1;
+    height: auto;
+    clip-path: polygon(0 0, 100% 11%, 100% 100%, 0 100%);
+    padding: 240px 128px 64px;
+    position: relative;
+    z-index: 1;
+}
+
+.dao__title {
+    font-weight: bold;
+    font-size: 60px;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.dao__cards {
+    width: 100%;
+    justify-content: space-between;
+    margin: 32px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+}
+
+.dao__btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+

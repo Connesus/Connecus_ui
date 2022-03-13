@@ -1,0 +1,30 @@
+.button {
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+.button.primary {
+    background-color: #0a0ab1;
+    color: white;
+}
+
+.button.primary:hover {
+    background-color: #2727c9;
+}
+
+.button.secondary {
+    background-color: white;
+    color: #333;
+    border: 2px solid #0a0ab1;
+}
+
+.button.secondary:hover {
+    background-color: #e3e3e3;
+}

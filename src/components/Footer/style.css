@@ -1,0 +1,36 @@
+.footer {
+    width: 100%;
+    background-color: white;
+    padding: 64px 128px;
+    display: flex;
+    gap: 64px;
+}
+
+.footer__logo {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.footer__description {
+    width: 70%;
+}
+
+.footer__social {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.footer__social-icon {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.footer__menu {
+    font-weight: 600;
+    margin-bottom: 16px;
+    cursor: pointer;
+}
