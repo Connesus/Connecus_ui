@@ -1,0 +1,8 @@
+.proposal .proposal-description {
+    margin: 0 64px 1rem 64px;
+    text-align: justify;
+}
+
+.proposal .proposal-kind {
+    margin-left: 64px;
+}

@@ -1,0 +1,65 @@
+.dao-base-information {
+    width: 400px;
+    padding: 40px 10px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    margin: 0 30px;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.dao-base-information .dao-thumbnail img {
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+}
+
+.dao-base-information .dao-thumbnail {
+    text-align: center;
+}
+
+.dao-base-information .dao-title {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.dao-base-information .dao-owner {
+    margin-top: 0rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #aaa;
+}
+
+.dao-base-information .dao-purpose {
+    padding: 0px 20px;
+    text-align: center;
+    font-family: 'Merriweather', serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+}
+
+.dao-base-information .dao-social-networks {
+    padding: 0px 40px;
+}
+
+.dao-base-information .dao-social-networks .dao-social-thumbnail img {
+    width: 36px;
+    height: 36px;
+    filter: grayscale(100%);
+    transition: 0.3s;
+    border-radius: 50%;
+    
+}
+
+.dao-base-information .dao-social-thumbnail img:hover {
+    filter: grayscale(0%);
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}

@@ -1,0 +1,14 @@
+.dao-management {
+    margin-left: auto;
+    min-height: 100vh;
+    background-color: #ddd;
+    float: right;
+    width: calc(100% - 460px);
+    padding: 0px 30px 30px 30px;
+}
+
+.dao-bounties .dao-management-header {
+    font-size: 1.5rem;
+    color: #aaa;
+    margin-right: 10px;
+}

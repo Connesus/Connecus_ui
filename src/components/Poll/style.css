@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+::selection{
+    color: #fff;
+    background: #6665ee;
+}
+.wrapper{
+    background: #fff;
+    border-radius: 15px;
+    padding: 25px;
+    width: calc(100% - 64px);
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+}
+.wrapper header{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.wrapper .poll-area{
+    margin: 20px 0 15px 0;
+}
+.poll-area label{
+    display: block;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 8px 15px;
+    border: 2px solid #e6e6e6;
+    transition: all 0.2s ease;
+}
+.poll-area label:hover{
+    border-color: #ddd;
+}
+label.selected{
+    border-color: #6665ee!important;
+}
+label .select-option{
+    display: flex;
+    pointer-events: none;
+    justify-content: space-between;
+}
+label .select-option .column{
+    display: flex;
+    align-items: center;
+}
+label .select-option .circle{
+    height: 19px;
+    width: 19px;
+    display: block;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+    position: relative;
+}
+label.selected .select-option .circle{
+    border-color: #6665ee;
+}
+label .select-option .circle::after{
+    content: "";
+    height: 11px;
+    width: 11px;
+    background: #6665ee;
+    border-radius: inherit;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    display: none;
+}
+.poll-area label:hover .select-option .circle::after{
+    display: block;
+    background: #e6e6e6;
+}
+label.selected .select-option .circle::after{
+    display: block;
+    background: #6665ee!important;
+}
+label .select-option span{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+label .select-option-description {
+    margin-left: 30px;
+    margin-bottom: 0;
+    font-size: 0.8rem;
+    color: #555;
+}
+
+label .progress{
+    height: 7px;
+    width: calc(100% - 30px);
+    position: relative;
+    background: #f0f0f0;
+    margin: 8px 0 3px 0;
+    border-radius: 30px;
+    display: block;
+    pointer-events: none;
+    margin-left: 30px;
+}
+label .progress:after{
+    position: absolute;
+    content: "";
+    height: 100%;
+    background: #ccc;
+    width: calc(1% * 30);
+    border-radius: inherit;
+    transition: all 0.2s ease;
+}
+label.selected .progress::after{
+    background: #6665ee;
+}
+label.selectall .progress,
+label.selectall .select-option .percent{
+    display: inline-block;
+}
+input[type="radio"],
+input[type="checkbox"]{
+    display: none;
+}

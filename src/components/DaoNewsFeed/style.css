@@ -1,0 +1,8 @@
+.dao-news-feed {
+    margin-left: auto;
+    min-height: 100vh;
+    background-color: #ddd;
+    float: right;
+    width: calc(100% - 460px);
+    padding: 0px 30px 30px 30px;
+}

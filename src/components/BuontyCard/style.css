@@ -1,0 +1,36 @@
+.bounty-card {
+    width: 250px;
+    padding: 20px 10px;
+    background: #fff;
+    text-align: center;
+    border-radius: 10px;
+    margin: 20px 10px
+}
+
+.bounty-card .token-name {
+    color: #aaa;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.bounty-card .token-logo img {
+    width: 80px;
+    height: 80px;
+}
+
+.bounty-card .token-amount {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.bounty-card .token-account-id {
+    color: #aaa;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.bounty-card .token-claim-status {
+    font-size: 0.6rem;
+    color: #555;
+}

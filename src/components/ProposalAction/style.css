@@ -1,0 +1,15 @@
+.proposal-actions {
+    margin-left: 20px;
+    margin-bottom: 30px;
+}
+
+.proposal-actions .proposal-action img {
+    width: 20px;
+    height: 20px;
+    
+}
+
+.proposal-actions .proposal-action {
+    margin-left: 72px;
+    cursor: pointer;
+}

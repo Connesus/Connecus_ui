@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@700&family=Fredoka:wght@500&family=League+Gothic&family=Merriweather:wght@400;700&family=Roboto&family=Sigmar+One&display=swap');* {
+  box-sizing: border-box;
+}
+
+html {
+  --bg: #efefef;
+  --fg: #1e1e1e;
+  --gray: #555;
+  --light-gray: #ccc;
+  --shadow: #e6e6e6;
+  --success: rgb(90, 206, 132);
+  --primary: #FF585D;
+  --secondary: #0072CE;
+}
+
+body {
+  margin: 0;
+  font-family: 'Fredoka', sans-serif;
+  background: #f6b93b;  /* fallback for old browsers */
+}
+
+/* Create two equal columns that floats next to each other */
+.layout-column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.layout-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.avatar-sm img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 10px
+}
+
+.header-user-name {
+  font-weight: bold;
+}
+
+.header-created-time {
+  color: #555;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.mr-3 {
+  margin-right: 3rem;
+}
+
+.mr-2 {
+  margin-right: 2rem;
+}
+
+.mr-1 {
+  margin-right: 1rem;
+}
+
+.ml-3 {
+  margin-right: 3rem;
+}
+
+.ml-2 {
+  margin-right: 2rem;
+}
+
+.ml-1 {
+  margin-right: 1rem;
+}
