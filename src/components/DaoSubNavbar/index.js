@@ -4,17 +4,19 @@ import burger from '@assets/hamburger.png'
 import hearts from '@assets/hearts.png'
 import { logout, login } from '../../utils'
 import { utils, transactions } from "near-api-js";
-const TEST_DAO_CONTRACT = "connecus-dao.manhndev.testnet"
-
+import useDaoContract from '@hooks/useDaoContract'
+import { useNavigate } from 'react-router-dom'
 
 export default function DaoSubNavbar({
     setCurrentTab,
-    FtContract,
     ftStorageBalance,
     userDelegation,
-    daoOwner
+    daoOwner,
+    metadata
 }) {
 
+    const navigate = useNavigate()
+    const {daoContractId} = useDaoContract()
     const  [isActive, setActive] = useState(false);
     
     const [delegateValue, setDelegateValue] = useState(1)
@@ -39,18 +41,18 @@ export default function DaoSubNavbar({
         let transferMsgString = JSON.stringify(transferMsg)
 
         const result = await window.account.signAndSendTransaction({
-            receiverId: FtContract.contractId,
+            receiverId: window.FtContract.contractId,
             actions: [
                 transactions.functionCall(
                     'storage_deposit', 
-                    {account_id: TEST_DAO_CONTRACT},
+                    {account_id: daoContractId},
                     10000000000000, 
                     utils.format.parseNearAmount("0.01")
                 ),
                 transactions.functionCall(
                     'ft_transfer_call', 
                     {
-                        receiver_id: TEST_DAO_CONTRACT, 
+                        receiver_id: daoContractId, 
                         amount: delegateValue.toString(), 
                         memo: null,
                         msg: transferMsgString
@@ -63,7 +65,7 @@ export default function DaoSubNavbar({
     }
 
     const handleRegisterToken = async () => {
-        await FtContract.storage_deposit(
+        await window.FtContract.storage_deposit(
             {account_id: window.accountId}, 
             10000000000000, 
             utils.format.parseNearAmount("0.01")
@@ -72,7 +74,7 @@ export default function DaoSubNavbar({
 
     return (
         <>
-        <div className={`side-bar-menu ${isActive ? "active" : ""} d-flex flex-column justify-content-evenly`}>
+        <div className={`side-sub-navbar-menu ${isActive ? "active" : ""} d-flex flex-column justify-content-evenly`}>
             {window.accountId && (
                 <>
                 <div>
@@ -85,8 +87,7 @@ export default function DaoSubNavbar({
                         </ul>
                     </div>
                     <div className="connecus mt-3">
-                        <p className="text-center">Delegation Amount</p>
-                        <p className="text-center">${userDelegation}</p>
+                        <p className="text-center">${userDelegation} {metadata?.symbol}</p>
                     </div>
                 </div>
                 </>
@@ -97,6 +98,9 @@ export default function DaoSubNavbar({
                 </button>
             </div>}
             <div className="nav-items">
+                <div className="nav-item" onClick={() => navigate("/")}>
+                    Home
+                </div>
                 <div className="nav-item" onClick={() => changeTab(1)}>
                     News feed
                 </div>
@@ -149,7 +153,7 @@ export default function DaoSubNavbar({
                 </div>
             </div>
         </div>
-        <div className={`side-bar-menu-burger ${isActive ? "active" : ""}`} onClick={() => setActive(!isActive)}>
+        <div className={`side-sub-navbar-menu-burger ${isActive ? "active" : ""}`} onClick={() => setActive(!isActive)}>
             <img src={burger} alt="burger" />
         </div>
         <div className={`grey-layer ${isActive ? "active" : ""}`}></div>

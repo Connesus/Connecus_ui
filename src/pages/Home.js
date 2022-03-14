@@ -1,52 +1,65 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import DaoCard from "../components/DaoCard";
-import Button from "../components/Button";
+import Footer from "@component/Footer";
+import influencer from "@assets/influencer.jpg"
+import { useNavigate } from 'react-router-dom';
+import DaoCard from '@component/DaoBaseCard';
+import hearts from '@assets/hearts.png'
 
 import './styles/Home.page.css';
 
 const Home = () => {
+
+    const [daos, setDaos] = useState([])
+    const [start, setStart] = useState(0)
+    const [limit, setLimit] = useState(10)
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        window.FactoryContract.get_daos({
+            from_index: 0, 
+            limit: 10
+        }).then((results) => {
+            console.log(results)
+            setDaos(results)
+        })
+    }, [])
+
     return (
         <div>
-            <Navbar/>
-
             <div className='hero'>
                 <div className='hero--left'>
                     <h1 className='hero__title'>
-                        Your Community
-                        Your Partners
+                        Connecus
                     </h1>
-                    <p className='hero__subtitle'>Connecus is a platform to help you promote, evolve your own community easier like never before.</p>
+                    <p className='hero__description'>Connect influencer to fans by blockchain</p>
 
                     <div className='hero__btns'>
-                        <Button type={'primary'} text={'Primary Button'}/>
-                        <Button type={'secondary'} text={'Secondary Button'}/>
+                        <button className='btn btn-warning' onClick={() => navigate('/create')}>Create your Community</button>
+                        <button className='btn btn-dark'>Buy CEUS and enjoy</button>
                     </div>
                 </div>
 
                 <div className='hero--right'>
-                    <img src="http://210.94.194.63:5112/fe-connecus/static/media/community1.edd3db98.svg" alt="hero-img"/>
+                    <img src={influencer} alt="hero-img"/>
                 </div>
             </div>
 
             <div className='dao-section'>
-                <h1 className='dao__title'>
-                    Top Influencers
-                </h1>
-
-                <div className='dao__cards'>
-                    <DaoCard thumbnail={'https://i.pinimg.com/564x/7f/65/f3/7f65f3451374aef5b61dc3f14492e413.jpg'}/>
-                    <DaoCard thumbnail={'https://i.pinimg.com/564x/94/51/a9/9451a9d4e5d6fdcf783669952f1a13d8.jpg'}/>
-                    <DaoCard thumbnail={'https://i.pinimg.com/564x/b4/3c/d3/b43cd33006d3c50bd241047a6fbb3104.jpg'}/>
-                    <DaoCard thumbnail={'https://i.pinimg.com/564x/e3/75/b5/e375b5bc3d3e2df39d59b7fcad7793bd.jpg'}/>
-                    <DaoCard thumbnail={'https://i.pinimg.com/564x/04/cd/92/04cd92e85f0ae39205fc160ef13b1546.jpg'}/>
-                    <DaoCard thumbnail={'https://i.pinimg.com/564x/02/24/b0/0224b0d3d7a74a2afd80291d2f302a4d.jpg'}/>
+                <div className='dao-section__delimiter'>
+                    <div className='dao-section__delimiter-line'></div>
+                    <div className='dao-section__delimiter-center'>
+                        <img src={hearts} alt="" />
+                    </div>
+                    <p className='text-center dao-section-title'>Influencer's Dao</p>
                 </div>
 
-                <div className={'dao__btn'}>
-                    <Button type={'secondary'} text={'See More'}/>
+                <div className='dao__cards d-flex flex-wrap justify-content-between'>
+                    {daos.map(dao => {
+                        const {metadata, owner_id, token_contract_id} = dao
+                        return <DaoCard metadata={metadata} key={metadata.symbol} id={metadata.symbol} owner={owner_id}/>
+                    })}
                 </div>
             </div>
 

@@ -8,13 +8,11 @@ import donation from '@assets/hearts.png'
 import './style.css'
 import useDaoContract from '@hooks/useDaoContract'
 import { utils, transactions } from "near-api-js";
-const TEST_DAO_CONTRACT = "connecus-dao.manhndev.testnet"
-const FT_TOKEN_CONTRACT = "connecus-token.manhndev.testnet"
 
 
 export default function TokenCreateForm({metadata}) {
 
-    const {contract: DaoContract} = useDaoContract()
+    const {contract: DaoContract, daoContractId} = useDaoContract()
 
     const [donateValue, setDonateValue] = useState(0)
     const updateDonateValue = (event) => {
@@ -37,18 +35,18 @@ export default function TokenCreateForm({metadata}) {
         let transferMsgString = JSON.stringify(transferMsg)
 
         const result = await window.account.signAndSendTransaction({
-            receiverId: FT_TOKEN_CONTRACT,
+            receiverId: window.FtContract.contractId,
             actions: [
                 transactions.functionCall(
                     'storage_deposit', 
-                    {account_id: TEST_DAO_CONTRACT},
+                    {account_id: daoContractId},
                     10000000000000, 
                     utils.format.parseNearAmount("0.01")
                 ),
                 transactions.functionCall(
                     'ft_transfer_call', 
                     {
-                        receiver_id: TEST_DAO_CONTRACT, 
+                        receiver_id: daoContractId, 
                         amount: donateValue.toString(), 
                         memo: null,
                         msg: transferMsgString
@@ -70,7 +68,7 @@ export default function TokenCreateForm({metadata}) {
                 {metadata?.name?.toUpperCase()}
             </div>
             <div className="dao-owner">
-                {TEST_DAO_CONTRACT}
+                {daoContractId}
             </div>
             <div className="dao-purpose">
                 {metadata?.purpose?.toLowerCase()}

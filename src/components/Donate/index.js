@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import './style.css'
 import {timestampToDateTime} from '@utils/time.utils';
 import { utils, transactions } from "near-api-js";
-const TEST_DAO_CONTRACT = "connecus-dao.manhndev.testnet"
-const FT_TOKEN_CONTRACT = "connecus-token.manhndev.testnet"
+import useDaoContract from "@hooks/useDaoContract";
 
 export default function Donate({proposal}) {
+
+    const {daoContractId} = useDaoContract()
 
     let {duration, id, total_donations, submission_time: startTime} = proposal
 
@@ -34,18 +35,18 @@ export default function Donate({proposal}) {
         let transferMsgString = JSON.stringify(transferMsg)
 
         const result = await window.account.signAndSendTransaction({
-            receiverId: FT_TOKEN_CONTRACT,
+            receiverId: window.FtContract.contractId,
             actions: [
                 transactions.functionCall(
                     'storage_deposit', 
-                    {account_id: TEST_DAO_CONTRACT},
+                    {account_id: daoContractId},
                     10000000000000, 
                     utils.format.parseNearAmount("0.01")
                 ),
                 transactions.functionCall(
                     'ft_transfer_call', 
                     {
-                        receiver_id: TEST_DAO_CONTRACT, 
+                        receiver_id: daoContractId, 
                         amount: donateValue.toString(), 
                         memo: null,
                         msg: transferMsgString
@@ -62,7 +63,7 @@ export default function Donate({proposal}) {
         <div className="wrapper">
             <header className="d-flex justify-content-between">
                 <div>Donate</div>
-                <div>${total_donations} CNES</div>
+                <div>${total_donations} CEUS</div>
             </header>
             <div className="input-group mt-3">
                 <input 

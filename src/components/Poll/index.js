@@ -85,7 +85,7 @@ export default function Poll({proposalId}) {
             <header>Vote</header>
             <div className="poll-area">
                 {optionsList.map(option => {
-                    let percent = option_delegations[option.id] ? option_delegations[option.id] / total_delegation_amount * 100 : 0
+                    let percent = Math.round((option_delegations[option.id] ? option_delegations[option.id] / total_delegation_amount * 100 : 0) * 100) / 100
                     return (
                         <label key={option.id} className={`${selected === option.id ? "selected" : ""}`} onClick={() => voteHandler(option.id)}>
                             <div className="select-option">

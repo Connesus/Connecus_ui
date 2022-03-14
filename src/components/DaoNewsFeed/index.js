@@ -4,7 +4,7 @@ import PollingProposal from '@component/PollingProposal'
 import DonateProposal from '@component/DonateProposal'
 import useDaoContract from '@hooks/useDaoContract'
 
-export default function DaoNewsFeed() {
+export default function DaoNewsFeed({metadata}) {
 
     const {contract: DaoContract} = useDaoContract()
     const [proposals, setProposals] = useState([])
@@ -33,9 +33,9 @@ export default function DaoNewsFeed() {
         <div className="dao-news-feed">
             {proposals.map((proposal) => {
                 if (proposal.kind === "Donate") {
-                    return <DonateProposal proposal={proposal} key={`proposal-${proposal.id}`} />
+                    return <DonateProposal metadata={metadata} proposal={proposal} key={`proposal-${proposal.id}`} />
                 } else {
-                    return <PollingProposal proposal={proposal} key={`proposal-${proposal.id}`}/>
+                    return <PollingProposal metadata={metadata} proposal={proposal} key={`proposal-${proposal.id}`}/>
                 }
             })}
         </div>

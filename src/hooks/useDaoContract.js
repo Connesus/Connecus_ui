@@ -2,14 +2,16 @@ import React, {useState, useEffect} from "react";
 import getConfig from '@config'
 const { contractName } = getConfig(process.env.NODE_ENV || 'development')
 import { connect, Contract, keyStores, WalletConnection } from 'near-api-js'
+import { useParams } from 'react-router-dom'
 
-const TEST_DAO_CONTRACT = "connecus-dao.manhndev.testnet"
-
-export default function useDaoContract(accountId) {
+export default function useDaoContract() {
     const [contract, setContract] = useState(null)
+    const {id} = useParams()
+
+    const daoContractId = `${id.toLowerCase()}.${window.FactoryContract.contractId}`
 
     const initContract = async () => {
-        const contract = await new Contract(window.walletConnection.account(), TEST_DAO_CONTRACT, {
+        const contract = await new Contract(window.walletConnection.account(), daoContractId, {
             viewMethods: [
                 'version',
                 'get_metadata',
@@ -46,6 +48,7 @@ export default function useDaoContract(accountId) {
     }, [])
 
     return {
+        daoContractId,
         contract,
     }
 }

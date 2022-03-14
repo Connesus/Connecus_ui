@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import './style.css'
-import useFtContract from "@hooks/useFtContract";
 import { utils, transactions } from "near-api-js";
-const FT_TOKEN_CONTRACT = "connecus-token.manhndev.testnet"
-const TEST_DAO_CONTRACT = "connecus-dao.manhndev.testnet"
+import useDaoContract from "@hooks/useDaoContract";
 
 
 export default function BountyCreate() {
 
-    const {contract: FtContract} = useFtContract()
+    const {daoContractId} = useDaoContract()
     const [duration, setDuration] = useState(null)
     const [description, setDescription] = useState(null)
     const [claimValue, setClaimValue] = useState(0)
@@ -24,7 +22,7 @@ export default function BountyCreate() {
     }
     const PAYMENT_TOKEN = {
         name: "Connecus",
-        symbol: "CNES",
+        symbol: "CEUS",
         accountId: "connecus.testnet"
     }
 
@@ -77,7 +75,7 @@ export default function BountyCreate() {
             claimer: claimers,
             duration: (duration * 24 * 60 * 60 * 1000 * 1000000).toString(),
             start_time: (Date.now() * 1000000).toString(),
-            token: FT_TOKEN_CONTRACT,
+            token: window.FtContract.contractId,
             description
         }
 
@@ -92,18 +90,18 @@ export default function BountyCreate() {
         let transferMsgString = JSON.stringify(transferMsg)
 
         const result = await window.account.signAndSendTransaction({
-            receiverId: FtContract.contractId,
+            receiverId: window.FtContract.contractId,
             actions: [
                 transactions.functionCall(
                     'storage_deposit', 
-                    {account_id: TEST_DAO_CONTRACT},
+                    {account_id: daoContractId},
                     10000000000000, 
                     utils.format.parseNearAmount("0.01")
                 ),
                 transactions.functionCall(
                     'ft_transfer_call', 
                     {
-                        receiver_id: TEST_DAO_CONTRACT, 
+                        receiver_id: daoContractId, 
                         amount: transferAmount.toString(), 
                         memo: null,
                         msg: transferMsgString

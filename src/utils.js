@@ -13,18 +13,34 @@ export async function initContract() {
   window.accountId = window.walletConnection.getAccountId()
   window.account = window.walletConnection.account();
 
-  window.contract = await new Contract(window.walletConnection.account(), nearConfig.contractName, {
+  const {tokenContract, factoryContract} = nearConfig
+
+  window.FtContract = await new Contract(window.walletConnection.account(), tokenContract, {
+    viewMethods: [
+      'ft_balance_of',
+      'ft_total_supply',
+      'storage_balance_of'
+    ],
+    changeMethods: [
+        'storage_deposit',
+        'ft_transfer',
+        'ft_transfer_call',
+    ],
+  })
+
+  window.FactoryContract = await new Contract(window.walletConnection.account(), factoryContract, {
     viewMethods: [
       'get_min_attached_balance',
       'get_required_deposit',
-      'get_number_of_tokens',
-      'get_tokens',
-      'get_token',
-  ],
-  changeMethods: [
-      'storage_deposit',
-      'create_token'
-  ],
+      'get_number_of_daos',
+      'get_daos',
+      'get_dao',
+
+    ],
+    changeMethods: [
+        'storage_deposit',
+        'create_dao',
+    ],
   })
 }
 
